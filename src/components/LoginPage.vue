@@ -9,6 +9,7 @@
       <el-input type="password" v-model="form.password" clearable show-password></el-input>
     </el-form-item>
    </el-form>
+    <el-text type="info" class="mx-1">{{statues}}</el-text>
     <div class="button-position">
   <el-button type="primary" @click="submitForm('form')">登录</el-button>
   <el-button type="primary" @click="register">注册</el-button>
@@ -25,7 +26,8 @@ export default {
       form: {
         name: '',
         password: ''
-      }
+      },
+      statues: '请输入账号和密码'
     }
   },
   methods: {
@@ -35,12 +37,15 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          axios.post('http://your-backend-url/login', this.form)
+          axios.post(`${this.$apiUrl}/user/login`, this.form)
               .then(async response => {
-                if (response.data.code===200) {
+                if (response.data.result) {
+                  console.log('Login successful!');
                   alert('Login successful!');
+                  await this.$store.commit('login', response.data);
                   await router.push('/Main');
                 } else {
+                  this.statues = '用户名或密码错误';
                   console.log('Login failed!');
                 }
               })

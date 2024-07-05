@@ -5,8 +5,8 @@ import SelfPage from '@/components/SelfPage'
 import LoginPage from "@/components/LoginPage.vue";
 import RegisterPage from "@/components/RegisterPage.vue";
 import InfoPage from "@/components/InfoPage.vue";
-import SettingPage from "@/components/SettingPage.vue";
 import OrderHistoryPage from "@/components/OrderHistoryPage.vue";
+import finalorder from "@/components/final_order.vue";
 const router = createRouter({
     history: createWebHistory(),
     routes: [
@@ -16,7 +16,7 @@ const router = createRouter({
             component: MainPage
         },//主界面
         {
-            path: '/Order',
+            path: '/Order/',
             name: 'OrderPage',
             component:OrderPage
         },//订单界面
@@ -30,15 +30,10 @@ const router = createRouter({
                     component:InfoPage
                 },//个人信息界面
                 {
-                    path: 'Setting',
-                    name: 'SettingPage',
-                    component:SettingPage
-                },//设置界面
-                {
                     path:'OrderHistory',
                     name:'OrderHistoryPage',
                     component:OrderHistoryPage
-                }
+                },
                 ]
         },//个人中心界面
         {
@@ -51,6 +46,11 @@ const router = createRouter({
             name:'RegisterPage',
             component:RegisterPage
         },//注册界面
+        {
+            path: '/finalorder',
+            name: 'finalorder',
+            component:finalorder
+        }
 
     ]
 })

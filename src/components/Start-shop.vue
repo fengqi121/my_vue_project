@@ -2,23 +2,30 @@
   <div>
       <div class="parent" >
       <div class="shop-image" >
-        <img src="../assets/head.jpg" alt="Shop image">
+        <img :src="imageUrl" alt="Shop image">
       </div>
       <div  class="shop-name" @click="handleClick" >
-      店铺名
+      {{shopName}}
       </div>
       </div>
   </div>
 </template>
 
 <script>
-import router from "@/router";
 export default {
   name: 'Start-shop',
+  props: {
+    shopID: String,
+shopName: {String,
+default: "店名"
+},
+imageUrl: String,
+  },
   methods: {
+    //跳转到订单页面
     handleClick() {
-        router.push('/Shop')
-    }
+      this.$router.push({ path: '/Order', query: { shopID: this.shopID } });
+    },
   }
 }
 </script>

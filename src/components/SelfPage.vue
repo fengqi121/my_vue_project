@@ -1,4 +1,5 @@
 <template>
+  <menu_top />
   <el-row >
   <el-col :span="3">
     <!-- 菜单栏设置 -->
@@ -16,11 +17,9 @@
       <span>个人信息</span>
     </el-menu-item>
     <!-- 设置菜单 -->
-    <el-menu-item index="2" @click="goToSetting">
-      <span>设置</span>
-    </el-menu-item>
+
       <el-menu-item index="3" @click="goToOrderHistory">
-        <span>订单</span>
+        <span>历史订单</span>
       </el-menu-item>
   </el-menu>
   </el-col>
@@ -31,8 +30,12 @@
 </template>
 
 <script>
+import menu_top from "@/components/MainMenu.vue";
 import router from "@/router";
 export default {
+  components: {
+    menu_top
+  },
   methods: {
     handleOpen(key, keyPath) {
       console.log(key, keyPath);
@@ -43,12 +46,9 @@ export default {
     goToInfo() {
       router.push('/Self/Info');
     },
-    goToSetting() {
-      router.push('/Self/Setting');
-    },
     goToOrderHistory() {
       router.push('/Self/OrderHistory');
-    }
+    },
   }
 };
 </script>
@@ -56,7 +56,9 @@ export default {
 <style scoped>
 .cl-container
 {
+  width: 12.5%;
   background-color: #545c64;
   height: 100vh;
+  position: fixed;
 }
 </style>

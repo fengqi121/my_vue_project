@@ -1,87 +1,78 @@
 <template>
   <el-col>
-  <el-menu
-    text-color="#fff"
-    default-active="1"
-    class="menu-container"
-    mode="horizontal"
-    @open="handleOpen"
-    @close="handleClose"
-    background-color="#545c64"
-    active-text-color="#ffd04b"
-    >
-    <el-menu-item index="1" @click="handleClick0">
-      <span> 商城</span>
-    </el-menu-item>
-    <el-sub-menu index="2">
-      <template #title>
-        <img src="../assets/head.jpg" alt="Avatar" class="avatar">
-      </template>
-    <el-menu-item index="2-1" @click="handleClick1">
-      <span>历史订单</span>
-    </el-menu-item>
-    <el-menu-item index="2-2" @click="handleClick2">
-      <span>个人信息</span>
-    </el-menu-item>
-    <el-menu-item index="2-3" @click="handleClick3">
-      <span>设置</span>
-    </el-menu-item>
-    </el-sub-menu>
-  </el-menu>
-    <shop_start/>
-    <shop_start/>
-    <shop_start/>
-    <shop_start/>
-    <shop_start/>
+    <menu_start/>
+    <shop_start v-for="shop in shop_data" :key="shop.id" :shopName="shop.name"
+                                   :imageUrl="shop.image" :shopID="shop.id"/>
+    <el-pagination
+        class="thenu"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="currentPage"
+        :page-size="pageSize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :page-sizes="[10, 20, 30, 40]"
+        :total="total">
+    </el-pagination>
   </el-col>
 </template>
 
 <script>
-import router from "@/router";
-import shop_start from "@/components/Start-shop.vue";
+import shop_start from "@/components/Start-shop.vue"
+import menu_start from "@/components/MainMenu.vue"
+import axios from "axios";
 export default {
-  name: 'MainPage',
   components: {
-    shop_start
+    shop_start,
+    menu_start,
   },
   data() {
     return {
-      msg: 'MainPage'
-    }
+      total: 12,
+      shop_data: [
+      ],
+      currentPage: 1,
+      pageSize: 4,
+    };
+  },
+  created() {
+    this.fetchShopData();
   },
   methods: {
-    handleClick1() {
-        router.push('/Self/OrderHistory')
+      // ...
+     async fetchShopData() {
+       try {
+         const response = await axios.get(`${this.$apiUrl}/business/page`, {
+           // 在这里添加你的请求参数
+           params: {
+             pn: this.currentPage,
+             ps: this.pageSize,
+           }
+         });
+         if (response.data.result) {
+           this.shop_data = response.data.data.records;
+           this.total = response.data.data.total;
+           // 假设服务器返回的数据在data属性中
+         } else {
+           console.log('An error occurred:', response.data.msg);
+         }
+       } catch (error) {
+         console.error('An error occurred:', error);
+       }
+     },
+    handleSizeChange(val) {
+      this.pageSize = val;
+      this.fetchShopData();
     },
-    handleClick2() {
-        router.push('/Self/Info')
-    },
-    handleClick3() {
-        router.push('/Self/Setting')
-    },
-    handleOpen(key, keyPath) {
-      console.log(key, keyPath);
-    },
-    handleClose(key, keyPath) {
-      console.log(key, keyPath);
+    handleCurrentChange(val) {
+      this.currentPage = val;
+       this.fetchShopData();
     }
   }
-}
+};
 </script>
-
 <style scoped>
-.menu-container
-{
-  justify-content: right;
+.thenu {
+bottom: 0;
   position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 1000;
-}
-.avatar {
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
 }
 </style>
