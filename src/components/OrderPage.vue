@@ -1,7 +1,7 @@
 <template>
   <mainMenu/>
   <singledish v-for="item in computedShopItems" :key="item.id" :dishName="item.name"
-              :imageUrl="item.image" :price="item.price" :num="item.num" :dishID="item.id" @cartchange="getCart"/>
+              :imageUrl="this.$apiUrl+item.image" :price="item.price" :num="item.num" :dishID="item.id" @cartchange="getCart"/>
   <el-pagination
       class="my-pagination"
     @size-change="handleSizeChange"
@@ -17,7 +17,7 @@
 
   <el-drawer v-model="drawer" title="购物车"  class="cart" >
 <dish @cartchange="getCart" v-for="item in cart" :key="item.id" :dishName="item.name"
-      :imageUrl="item.image" :shopID="item.shop_id" :dishID="item.dish_id" :num1="item.number" :price="item.amount"/>
+      :imageUrl="this.$apiUrl+item.image" :shopID="item.shop_id" :dishID="item.dish_id" :num1="item.number" :price="item.amount"/>
     <el-button class="settle" type="primary" @click="settle"> 结算</el-button>
   </el-drawer>
 </template>

@@ -39,7 +39,7 @@ export default {
   },
   created() {
     if (this.$store.state.accountInfo.data.image!=='')
-    this.imageUrl = this.$store.state.accountInfo.data.image;
+    this.imageUrl = this.$apiUrl+this.$store.state.accountInfo.data.image;
   },
   methods: {
     handleClick0() {

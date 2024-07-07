@@ -56,7 +56,7 @@ export default {
     this.password = this.$store.state.accountInfo.data.password;
     this.radio1 = this.$store.state.accountInfo.data.sex;
     this.introduction = this.$store.state.accountInfo.data.introduction;
-    if(this.$store.state.accountInfo.data.image!=='') this.imageUrl = this.$store.state.accountInfo.data.image;
+    if(this.$store.state.accountInfo.data.image!=='') this.imageUrl = this.$apiUrl+this.$store.state.accountInfo.data.image;
   },
   methods: {
     edit() {
@@ -70,8 +70,6 @@ export default {
         this.$store.state.accountInfo.data.introduction = this.introduction;
         this.uploadImage();
         this.$store.state.accountInfo.data.image = this.imageUrl;
-
-
       }
     },
     async uploadImage() {
@@ -85,7 +83,7 @@ export default {
         });
         if (response.data.result) {
           this.imagename = response.data.data;
-          this.imageUrl=`${this.$apiUrl}/temp/${this.imagename}`;
+          this.imageUrl=`/temp/${this.imagename}`;
           console.log('Image uploaded:', this.imagename);
           this.$message.success('头像上传成功');
         } else {

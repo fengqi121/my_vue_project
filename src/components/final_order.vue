@@ -4,7 +4,7 @@
     <el-table :data="tableData.orderItems" border style="width: 100%">
       <el-table-column label="菜品图片" width="180">
         <template v-slot="{ row }">
-          <img :src="row.dish.image" style="width: 50px; height: 50px;">
+          <img :src="this.$apiUrl+row.dish.image" style="width: 50px; height: 50px;">
         </template>
       </el-table-column>
       <el-table-column prop="dish.name" label="菜品名"  />

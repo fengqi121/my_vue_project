@@ -2,7 +2,7 @@
   <el-col>
     <menu_start/>
     <shop_start v-for="shop in shop_data" :key="shop.id" :shopName="shop.name"
-                                   :imageUrl="shop.image" :shopID="shop.id"/>
+                                   :imageUrl="this.$apiUrl+shop.image" :shopID="shop.id"/>
     <el-pagination
         class="thenu"
         @size-change="handleSizeChange"

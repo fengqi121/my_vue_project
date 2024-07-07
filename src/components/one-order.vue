@@ -2,9 +2,6 @@
               <el-row class="one-order">
                 <el-col :span="24">
                   <el-row>
-                    <div class="shop-image" >
-                      <img src="{{imageUrl}}" alt="Shop image">
-                    </div>
                     <div  class="shop-name">
                      <p class="name"> {{shopName}}</p>
                     </div>
@@ -26,10 +23,6 @@ export default {
       type: String,
       default: "店名"
     },
-    imageUrl: {
-      type: String,
-      default: "../assets/head.jpg"
-    }
   },
   methods: {
     checkorder() {
